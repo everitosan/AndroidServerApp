@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ServerTemp</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!-- My strings  -->
+    <string name="port_button" > Set Port </string>
+    <string name="temperature_label"> Temperature </string>
+    <string name="zero"> 0 </string>
+</resources>
