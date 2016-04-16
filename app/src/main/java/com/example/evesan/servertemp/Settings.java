@@ -1,5 +1,7 @@
 package com.example.evesan.servertemp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -56,8 +58,8 @@ public class Settings extends AppCompatActivity {
     public void setPortAction(View view) {
         port = portNumber.getText().toString();
 
-        Log.d("Settings", port);
-
+        MainActivity.appServer.setPort(port);
+        MainActivity.appServer.startServer();
         finish();
 
     }

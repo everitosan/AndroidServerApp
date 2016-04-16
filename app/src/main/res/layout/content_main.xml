@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/zero"
-            android:id="@+id/textView"
+            android:id="@+id/receivedTemp"
             android:layout_gravity="center_horizontal" />
 
 
