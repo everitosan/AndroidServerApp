@@ -14,9 +14,9 @@ import android.widget.EditText;
 
 public class Settings extends AppCompatActivity {
 
-    EditText portNumber = null;
-    String port = null;
-    Button setPortButton = null;
+    private EditText portNumber = null;
+    private String port = null;
+    private Button setPortButton = null;
 
 
     @Override

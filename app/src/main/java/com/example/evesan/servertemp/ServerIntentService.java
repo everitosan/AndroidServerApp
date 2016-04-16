@@ -2,7 +2,11 @@ package com.example.evesan.servertemp;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Message;
+import android.os.Messenger;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.DataInput;
 import java.io.DataInputStream;
@@ -18,7 +22,9 @@ import java.net.Socket;
 public class ServerIntentService  extends IntentService {
 
     ServerSocket myServerSocket;
+    ServerResponse myResponse;
     String TAG = MainActivity.TAG;
+    private Messenger messageHandler;
 
     public ServerIntentService() {
         super("ServerIntentService");
@@ -26,18 +32,20 @@ public class ServerIntentService  extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        //what service does
+        //Obtain the port
         String port = intent.getStringExtra("port");
-        Log.d(TAG,"wiwi" + port);
+        //Obtain the messenger reference
+        messageHandler = (Messenger) intent.getExtras().get("Messenger");
 
         try {
             myServerSocket = new ServerSocket(Integer.parseInt(port));
+            Log.d(TAG,"Sever listening in port - " + port);
             while (true) {
                 Socket socketClient = myServerSocket.accept();
                 InputStream message = socketClient.getInputStream();
 
-
-                byte [] messageByte = new byte[5];
+                int messageLen = 5;
+                byte [] messageByte = new byte[messageLen];
                 boolean end = false;
                 String messageStr = "";
                 int bytesRead;
@@ -47,11 +55,20 @@ public class ServerIntentService  extends IntentService {
                     while(!end) {
                         bytesRead = messageInputStream.read(messageByte);
                         messageStr += new String(messageByte, 0, bytesRead);
-                        if (messageStr.length() == 5) {
+                        if (messageStr.length() == messageLen) {
                             end = true;
                         }
                     }
-                    Log.d(TAG, messageStr);
+
+                    //Response thread
+                    myResponse = new ServerResponse(socketClient);
+                    myResponse.run();
+                    //Messenger response
+                    Message message1 = Message.obtain();
+                    message1.arg1 =  Integer.parseInt(messageStr);
+                    messageHandler.send(message1);
+
+                    Log.d(TAG, "Measures temperature - " + messageStr);
                 }catch(Exception e) {
                     e.printStackTrace();
                 }
