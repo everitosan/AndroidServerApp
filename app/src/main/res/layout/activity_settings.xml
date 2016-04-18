@@ -16,7 +16,7 @@
         android:ems="10"
         android:id="@+id/portNumber"
         android:textAlignment="center"
-        android:maxLength="4"
+        android:maxLength="5"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="112dp" />

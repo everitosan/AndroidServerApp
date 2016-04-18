@@ -40,7 +40,7 @@ public class Settings extends AppCompatActivity {
                 port = portNumber.getText().toString();
 
 
-                if (!"".equals(port) && port.length() == 4) {
+                if (!"".equals(port) && port.length() == 5) {
                     setPortButton.setEnabled(true);
                 } else
                 {
