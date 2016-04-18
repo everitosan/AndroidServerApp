@@ -67,10 +67,9 @@ public class MainActivity extends AppCompatActivity {
     public static class MessageHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
-            int measure = message.arg1;
-            String report = String.valueOf(measure);
-            temperature.setText(report);
-            Log.d("---", report);
+            String measure = (String)message.obj;
+            temperature.setText(measure);
+            Log.d("---", measure);
         }
     }
 

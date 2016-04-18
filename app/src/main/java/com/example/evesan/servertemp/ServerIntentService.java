@@ -60,12 +60,13 @@ public class ServerIntentService  extends IntentService {
                         }
                     }
 
+
                     //Response thread
                     myResponse = new ServerResponse(socketClient);
                     myResponse.run();
                     //Messenger response
-                    Message message1 = Message.obtain();
-                    message1.arg1 =  Integer.parseInt(messageStr);
+                    Message message1 = new Message();
+                    message1.obj = messageStr;
                     messageHandler.send(message1);
 
                     Log.d(TAG, "Measures temperature - " + messageStr);
