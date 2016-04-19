@@ -37,4 +37,8 @@ public class MyServer {
         //start the server
         this.main.startService(serviceIntent);
     }
+
+    public void stopServer() {
+
+    }
 }

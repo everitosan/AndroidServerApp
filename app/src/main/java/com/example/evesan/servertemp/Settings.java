@@ -17,6 +17,7 @@ public class Settings extends AppCompatActivity {
     private EditText portNumber = null;
     private String port = null;
     private Button setPortButton = null;
+    private String TAG = MainActivity.TAG;
 
 
     @Override
@@ -57,9 +58,13 @@ public class Settings extends AppCompatActivity {
 
     public void setPortAction(View view) {
         port = portNumber.getText().toString();
+        int position = 0;
+        MainActivity.ServerSockets.add( new MyServer(Settings.this, ServerIntentService.class, MainActivity.messageHandler) );
+        position = MainActivity.ServerSockets.size()-1;
+        MainActivity.ServerSockets.get(position).setPort(port);
+        MainActivity.ServerSockets.get(position).startServer();
 
-        MainActivity.appServer.setPort(port);
-        MainActivity.appServer.startServer();
+        Log.d(TAG, "In array ->" + MainActivity.ServerSockets.size());
         finish();
 
     }
