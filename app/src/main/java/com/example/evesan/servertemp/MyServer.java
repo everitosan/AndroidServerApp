@@ -12,16 +12,15 @@ import android.os.Messenger;
  * Created by evesan on 4/14/16.
  */
 public class MyServer {
-    private Intent serviceIntent;
-    private Context main;
+
     private String port;
     private Handler messageHandler;
+    private ServerIntentService service = null;
+    private int index = 0;
 
     String TAG = MainActivity.TAG;
 
-    public MyServer(Context c1, Class c2, Handler messageHandler) {
-        this.main = c1;
-        this.serviceIntent = new Intent(c1, c2);
+    public MyServer(Handler messageHandler) {
         this.messageHandler = messageHandler;
     }
 
@@ -29,16 +28,16 @@ public class MyServer {
         this.port = port;
     }
 
+    public void setIndex(int index) {
+        this.index=  index;
+    }
+
     public void startServer() {
-        //Send the port
-        serviceIntent.putExtra("port", this.port);
-        //Send the messenger handler reference
-        serviceIntent.putExtra("Messenger", new Messenger(this.messageHandler));
+        //Send the port and messenger
+        this.service = new ServerIntentService(this.port, this.index, new Messenger(this.messageHandler));
         //start the server
-        this.main.startService(serviceIntent);
+        this.service.start();
     }
 
-    public void stopServer() {
 
-    }
 }

@@ -12,9 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,12 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
     final static String TAG = "com.example.evesan.servertemp";
 
-    static MyServer appServer;
-    static TextView temperature;
+
     FloatingActionButton addSensor = null;
     static Handler messageHandler = new MessageHandler();
     static Context mainContext = null;
     static ArrayList<MyServer> ServerSockets = new ArrayList<MyServer>();
+
+    static LinearLayout LL = null;
 
 
     @Override
@@ -48,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
             }
          });
 
-        temperature = (TextView) findViewById(R.id.receivedTemp);
+
+        LL = (LinearLayout) findViewById(R.id.container);
         mainContext= MainActivity.this;
 
     }
@@ -61,9 +66,25 @@ public class MainActivity extends AppCompatActivity {
     public static class MessageHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
-            String measure = (String)message.obj;
-            temperature.setText(measure);
-            Log.d("---", measure);
+
+            SensorInfo sensorI = (SensorInfo) message.obj;
+            String tvs = "Sensor " + sensorI.getIndex() + " " +sensorI.getMeasure() + " ºC";
+
+            if (!sensorI.isUiPrinted()) {
+                TextView tv = new TextView(mainContext);
+
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
+                tv.setGravity(Gravity.CENTER);
+                tv.setId(sensorI.getIndex());
+                tv.setText(tvs);
+                LL.addView(tv);
+                sensorI.setTextV(tv);
+                sensorI.registedPrinted(true);
+            } else {
+                TextView tv = sensorI.getTextV();
+                tv.setText(tvs);
+            }
+
         }
     }
 

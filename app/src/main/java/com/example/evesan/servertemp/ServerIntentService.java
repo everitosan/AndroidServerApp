@@ -19,23 +19,25 @@ import java.net.Socket;
  * Created by evesan on 4/15/16.
  */
 
-public class ServerIntentService  extends IntentService {
+public class ServerIntentService  extends Thread {
 
-    ServerSocket myServerSocket;
-    ServerResponse myResponse;
-    String TAG = MainActivity.TAG;
+    private ServerSocket myServerSocket;
+    private ServerResponse myResponse;
+    private String TAG = MainActivity.TAG;
     private Messenger messageHandler;
 
-    public ServerIntentService() {
+    private String port = null;
+    private SensorInfo sensorI = null;
+
+
+    public ServerIntentService(String port, int index, Messenger myMessenger) {
         super("ServerIntentService");
+        this.port = port;
+        this.messageHandler = myMessenger;
+        this.sensorI = new SensorInfo(index);
     }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        //Obtain the port
-        String port = intent.getStringExtra("port");
-        //Obtain the messenger reference
-        messageHandler = (Messenger) intent.getExtras().get("Messenger");
+    public void run() {
 
         try {
             myServerSocket = new ServerSocket(Integer.parseInt(port));
@@ -65,8 +67,9 @@ public class ServerIntentService  extends IntentService {
                     myResponse = new ServerResponse(socketClient);
                     myResponse.run();
                     //Messenger response
+                    this.sensorI.setMeasure(messageStr);
                     Message message1 = new Message();
-                    message1.obj = messageStr;
+                    message1.obj = this.sensorI;
                     messageHandler.send(message1);
 
                     Log.d(TAG, "Measures temperature - " + messageStr);
@@ -80,12 +83,7 @@ public class ServerIntentService  extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    @Override
-    public void onDestroy() {
-        Log.d(TAG,"Service ended");
-        super.onDestroy();
-    }
+
 }

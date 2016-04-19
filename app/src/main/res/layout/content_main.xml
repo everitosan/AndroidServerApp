@@ -13,6 +13,7 @@
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
+        android:id="@+id/container"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,22 +21,6 @@
         android:layout_alignParentStart="true">
 
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/temperature_label"
-            android:id="@+id/textView2"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/zero"
-            android:id="@+id/receivedTemp"
-            android:layout_gravity="center_horizontal" />
 
 
 
