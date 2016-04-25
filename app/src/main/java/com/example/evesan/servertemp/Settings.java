@@ -1,6 +1,7 @@
 package com.example.evesan.servertemp;
 
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -57,7 +58,6 @@ public class Settings extends AppCompatActivity {
 
     public void setPortAction(View view) {
         port = portNumber.getText().toString();
-        int position = 0;
 
         MyServer appServer = new MyServer(MainActivity.messageHandler);
         appServer.setPort(port);

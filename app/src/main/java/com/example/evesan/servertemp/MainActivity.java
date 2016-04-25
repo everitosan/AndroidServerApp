@@ -27,12 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
     final static String TAG = "com.example.evesan.servertemp";
 
-
     FloatingActionButton addSensor = null;
     static Handler messageHandler = new MessageHandler();
     static Context mainContext = null;
     static ArrayList<MyServer> ServerSockets = new ArrayList<MyServer>();
-
+    static Snackbar advise;
     static LinearLayout LL = null;
 
 
@@ -47,19 +46,18 @@ public class MainActivity extends AppCompatActivity {
         addSensor.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-                Intent settingsActivity = new Intent(MainActivity.this, Settings.class);
-                startActivity(settingsActivity);
+            Intent settingsActivity = new Intent(MainActivity.this, Settings.class);
+            startActivity(settingsActivity);
             }
          });
 
 
         LL = (LinearLayout) findViewById(R.id.container);
+        advise = Snackbar.make(findViewById(R.id.container), R.string.waiting, Snackbar.LENGTH_LONG);
         mainContext= MainActivity.this;
 
+
     }
-
-
-
 
 
     //Class for update the temperature reporter
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
                 tv.setGravity(Gravity.CENTER);
-                tv.setId(sensorI.getIndex());
+                //tv.setId(sensorI.getIndex());
                 tv.setText(tvs);
                 LL.addView(tv);
                 sensorI.setTextV(tv);
@@ -84,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView tv = sensorI.getTextV();
                 tv.setText(tvs);
             }
+            advise.show();
 
         }
     }

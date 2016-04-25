@@ -22,7 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Settings"></activity>
-        <service android:name=".ServerIntentService"></service>
 
     </application>
 

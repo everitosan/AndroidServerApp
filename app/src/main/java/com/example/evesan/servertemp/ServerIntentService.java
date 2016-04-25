@@ -41,7 +41,7 @@ public class ServerIntentService  extends Thread {
 
         try {
             myServerSocket = new ServerSocket(Integer.parseInt(port));
-            Log.d(TAG,"Sever listening in port - " + port);
+            Log.d(TAG,"Server listening in port - " + port);
             while (true) {
                 Socket socketClient = myServerSocket.accept();
                 InputStream message = socketClient.getInputStream();
@@ -65,7 +65,7 @@ public class ServerIntentService  extends Thread {
 
                     //Response thread
                     myResponse = new ServerResponse(socketClient);
-                    myResponse.run();
+                    myResponse.start();
                     //Messenger response
                     this.sensorI.setMeasure(messageStr);
                     Message message1 = new Message();

@@ -17,6 +17,7 @@
         android:id="@+id/portNumber"
         android:textAlignment="center"
         android:maxLength="5"
+        android:focusable="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="112dp" />
@@ -30,4 +31,23 @@
         android:enabled="false"
         android:layout_below="@+id/portNumber"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/instructions"
+        android:id="@+id/textView"
+        android:textSize="30dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hola"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp" />
+
 </RelativeLayout>

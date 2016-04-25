@@ -4,12 +4,13 @@
 
 
     <!-- My strings  -->
-    <string name="port_button" > Set Port </string>
+    <string name="port_button" > OK </string>
     <string name="sensor_list"> Show sensors </string>
     <string name="add_port" > Add Sensor </string>
     <string name="temperature_label"> Temperature </string>
     <string name="zero"> 0 </string>
 
-    <string name="no_port"> No port selected</string>
-    <string name="selected_ports"> Selected ports</string>
+    <string name="waiting"> Waiting for connection</string>
+
+    <string name="instructions"> instrucciones </string>
 </resources>

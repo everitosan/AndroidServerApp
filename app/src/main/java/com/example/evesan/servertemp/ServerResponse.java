@@ -19,12 +19,12 @@ public class ServerResponse extends Thread {
 
     public void run() {
         OutputStream outStream;
-        String replyMessage = "OK";
+        String replyMessage = "OK\n";
 
         try {
             outStream = this.client.getOutputStream();
             PrintStream pStream = new PrintStream(outStream);
-            pStream.print("OK\n");
+            pStream.print(replyMessage);
             pStream.close();
         }
         catch (IOException e) {
